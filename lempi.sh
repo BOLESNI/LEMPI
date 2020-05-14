@@ -21,6 +21,8 @@ if [ $CONTINUE = "y" ]; then
 	fi	
 	read -p "Install PHP7.0? (y/n)" PHP
 	if [ $PHP = "y" ]; then
+		sudo apt-get install software-properties-common
+		sudo add-apt-repository ppa:ondrej/php
 		sudo apt install -y php7.0 php7.0-fpm php7.0-cli php7.0-mcrypt php7.0-mbstring php7.0-mysql
 		sudo echo 'cgi.fix_pathinfo=0' >> /etc/php/7.0/fpm/php.ini
 		echo 'Adding cgi.fix_pathinfo=0 to /etc/php/7.0/fpm/php.ini'
@@ -41,9 +43,9 @@ if [ $CONTINUE = "y" ]; then
 		exit
 EOF
 	fi
-	read -p "Install Curl, Git? (y/n)" CGC
+	read -p "Install Curl, Git, Htop, Vnstat? (y/n)" CGC
 	if [ $CGC = "y" ]; then
-		sudo apt-get install -y curl git
+		sudo apt-get install -y curl git htop vnstat
 	fi
 else
 	exit
