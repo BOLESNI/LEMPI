@@ -1,9 +1,9 @@
-#!/bin/bash 
+#!/bin/bash
 echo "Ubuntu installation script for..."
 echo "- Nginx"
 echo "- Php7.0"
 echo "- Mysql-Server"
-echo "- Git, Curl"
+echo "- Git, Curl, Htop, Vnstat"
 read -p "Continue with installation? (y/n)" CONTINUE
 if [ $CONTINUE = "y" ]; then
 	read -p "Install Nginx? (y/n)" NGINX
