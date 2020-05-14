@@ -26,6 +26,26 @@ if [ $CONTINUE = "y" ]; then
 		sudo apt install -y php7.0 php7.0-fpm php7.0-cli php7.0-mcrypt php7.0-mbstring php7.0-mysql
 		sudo echo 'cgi.fix_pathinfo=0' >> /etc/php/7.0/fpm/php.ini
 		echo 'Adding cgi.fix_pathinfo=0 to /etc/php/7.0/fpm/php.ini'
+		truncate -s 0 /etc/nginx/sites-available/default
+		echo "server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /var/www/html;
+
+	# Add index.php to the list if you are using PHP
+	index idnex.php index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+	}
+}" >>  /etc/nginx/sites-available/default
 		read -p "Would you like to modify the FPM php.ini file? (y/n)" INI
 		if [ $INI = "y" ]; then
 			sudo nano /etc/php/7.0/fpm/php.ini
